@@ -180,7 +180,9 @@ details p { max-width: 740px; margin: -1px 30px 20px 0; font-size: 13px; }
 .final-cta { padding: 85px 5vw 95px; background: var(--blush); text-align: center; }
 .final-cta h2 { max-width: 850px; margin: 0 auto 28px; }
 footer { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 28px max(5vw, calc((100vw - 1280px)/2)); background: var(--deep); color: var(--white); font-size: 11px; }
-footer > div:first-child { display: flex; flex-direction: column; }
+footer .footer-brand { display: flex; align-items: center; gap: 13px; }
+footer .footer-brand > img { flex: none; width: 46px; height: 46px; object-fit: contain; filter: brightness(1.25); }
+footer .footer-brand > div { display: flex; flex-direction: column; }
 footer strong { font: 600 24px/1 var(--display); }
 
 .whatsapp-float { position: fixed; z-index: 29; right: 24px; bottom: 23px; display: grid; place-items: center; width: 58px; height: 58px; border: 3px solid var(--white); border-radius: 50%; background: #25d366; box-shadow: 0 8px 25px rgba(63,51,46,.25); transition: transform .2s, box-shadow .2s; }
