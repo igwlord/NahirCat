@@ -26,10 +26,15 @@ a { color: inherit; }
 
 .site-header { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 max(5vw, calc((100vw - 1280px)/2)); background: rgba(252,249,243,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(16px); }
 .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; white-space: nowrap; font: 700 34px/.8 var(--display); letter-spacing: -.035em; }
-.brand img { flex: none; width: 36px; height: 36px; object-fit: contain; animation: brand-paw-glow 7s ease-in-out infinite; }
-.brand-name { color: var(--deep); background: linear-gradient(105deg, var(--deep) 37%, #b48b8d 50%, var(--deep) 63%); background-size: 240% 100%; background-position: 100% 0; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: brand-text-glint 7s ease-in-out infinite; }
+.brand-mark { position: relative; display: grid; place-items: center; flex: none; width: 36px; height: 36px; }
+.brand-mark img { width: 100%; height: 100%; object-fit: contain; animation: brand-paw-glow 4.8s ease-in-out infinite; }
+.brand-mark::after { content: "✦"; position: absolute; top: -7px; right: -7px; color: var(--rose); font: 18px/1 Georgia, serif; opacity: 0; text-shadow: 0 0 8px rgba(155,109,114,.65); pointer-events: none; animation: brand-sparkle 4.8s ease-in-out infinite; }
+.brand-name { color: var(--deep); animation: brand-name-light 4.8s ease-in-out infinite; }
 .brand-subtitle { font: 700 10px/1 var(--body); text-transform: uppercase; letter-spacing: .18em; transition: color .25s; }
 .brand:hover .brand-subtitle, .brand:focus-visible .brand-subtitle { color: var(--rose); }
+.brand:hover .brand-mark img, .brand:focus-visible .brand-mark img { animation: none; transform: scale(1.08); filter: brightness(1.3) drop-shadow(0 0 9px rgba(155,109,114,.8)); }
+.brand:hover .brand-mark::after, .brand:focus-visible .brand-mark::after { animation: none; opacity: 1; }
+.brand:hover .brand-name, .brand:focus-visible .brand-name { animation: none; color: var(--rose); text-shadow: 0 0 10px rgba(155,109,114,.5); }
 .nav { display: flex; align-items: center; gap: clamp(17px,2vw,34px); }
 .nav a { text-decoration: none; font-size: 12px; font-weight: 700; line-height: 1.3; transition: color .2s; }
 .nav a:hover { color: var(--rose); }
@@ -213,7 +218,8 @@ footer strong { font: 600 24px/1 var(--display); }
   body { font-size: 14px; }
   .site-header { height: 67px; padding: 0 22px; }
   .brand { font-size: 29px; }
-  .brand img { width: 30px; height: 30px; }
+  .brand-mark { width: 30px; height: 30px; }
+  .brand-mark::after { top: -6px; right: -6px; font-size: 15px; }
   .brand-subtitle { font-size: 9px; }
   .menu-toggle { display: flex; flex-direction: column; justify-content: center; gap: 6px; width: 40px; height: 40px; padding: 7px; border: 0; background: transparent; }
   .menu-toggle span { display: block; width: 23px; height: 2px; background: var(--deep); border-radius: 4px; transition: transform .2s; }
@@ -339,17 +345,20 @@ footer strong { font: 600 24px/1 var(--display); }
 }
 
 @keyframes brand-paw-glow {
-  0%, 64%, 100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 0 transparent); }
-  73% { transform: scale(1.06); filter: brightness(1.2) drop-shadow(0 0 5px rgba(155,109,114,.5)); }
-  82% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 0 transparent); }
+  0%, 54%, 76%, 100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 0 transparent); }
+  64% { transform: scale(1.1); filter: brightness(1.35) drop-shadow(0 0 10px rgba(155,109,114,.85)); }
 }
-@keyframes brand-text-glint {
-  0%, 55%, 100% { background-position: 100% 0; }
-  78% { background-position: 0 0; }
+@keyframes brand-sparkle {
+  0%, 54%, 76%, 100% { opacity: 0; transform: translateY(3px) scale(.4) rotate(-25deg); }
+  64% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+@keyframes brand-name-light {
+  0%, 54%, 76%, 100% { color: var(--deep); text-shadow: 0 0 0 transparent; }
+  64% { color: var(--rose); text-shadow: 0 0 10px rgba(155,109,114,.5); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-  .brand img, .brand-name { animation: none !important; }
+  .brand-mark img, .brand-mark::after, .brand-name { animation: none !important; }
 }
