@@ -17,6 +17,20 @@ menuButton.addEventListener('click', () => {
 });
 
 nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+document.querySelectorAll('a[href="#contacto"]').forEach(link => link.addEventListener('click', event => {
+  event.preventDefault();
+  const contact = document.getElementById('contacto');
+  const headerHeight = document.querySelector('.site-header').getBoundingClientRect().height;
+  const availableHeight = window.innerHeight - headerHeight;
+  const sectionHeight = contact.getBoundingClientRect().height;
+  const topGap = Math.max(14, (availableHeight - sectionHeight) / 2);
+  const top = window.scrollY + contact.getBoundingClientRect().top - headerHeight - topGap;
+  if (window.location.hash !== '#contacto') history.pushState(null, '', '#contacto');
+  window.scrollTo({
+    top,
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+  });
+}));
 document.addEventListener('click', event => {
   if (!event.target.closest('.site-header')) closeMenu();
 });
